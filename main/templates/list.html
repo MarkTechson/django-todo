@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+	<head>
+		<title>Django Todo</title>
+	</head>
+	<body>
+	<h1>Django Todo List {{ num_todos }}</h1>
+	{% for todo in todos %}
+		<p>Completed: {{ todo.status }} - {{ todo.title }}</p>
+	{% endfor %}
+	</body>
+</html>
