@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from main.views import list_todos
+from main.views import todos
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', list_todos, name='todos')
+    url(r'^$', todos, name='todos')
 ]
