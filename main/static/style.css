@@ -1,0 +1,27 @@
+.todo {
+    border-top: solid 1px #d1e9ff;
+    padding-top: 10px;
+    border-left: double 1px red;
+    padding-left: 5px;
+    font-size: 21px;
+    font-weight: 200;
+}
+.todo:last-child {
+	border-bottom: solid 1px #d1e9ff;
+}
+.todo-list-section {
+    border: 1px solid #eaeaea;
+    padding: 75px 10px 75px 40px;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.1);
+}
+.completed {
+	text-decoration: line-through;
+	font-weight: bolder;
+	opacity: 0.2;
+}
+.todo-label {
+	display: inline-block;
+}
+.todo-input {
+	width: 80%;
+}

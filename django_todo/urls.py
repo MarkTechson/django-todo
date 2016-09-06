@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from main.views import todos
+from main.views import list_todo, toggle_todo, update_todo, add_todo, delete_todo
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', todos, name='todos')
+    url(r'^$', list_todo, name='list_todo'),
+    url(r'^add/', add_todo, name='add_todo'),
+    url(r'^toggle/(?P<id>\d+)/$', toggle_todo, name='toggle_complete'),
+    url(r'^update/(?P<id>\d+)/$', update_todo, name='update_todo'),
+	url(r'^delete/(?P<id>\d+)/$', delete_todo, name='delete_todo')
 ]
