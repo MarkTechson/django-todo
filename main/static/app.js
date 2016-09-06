@@ -3,19 +3,20 @@
 	'use strict';
 
 	$(document).ready(function () {
-		document.djangoTodoApp = {
-			updateTodo: updateTodo,
-			completeTodo: completeTodo,
-			deleteTodo: deleteTodo
-		};
+		var CSRF_TOKEN = $("[name='csrfmiddlewaretoken']").val();
 
+		// Add a double click listener to all of the .todo-label elements
+		// so that we can display an input form element when executed
 		$('.todo-label').dblclick(function (e) {
 			var id = getId($(e.currentTarget));
 			var input = $('#' + createId(id, '-input')).toggleClass('hidden');
 			var label = $('#' + createId(id, '-label')).toggleClass('hidden');
+			// keep the text synced between both elements
 			input.val(label.text());
 		});
 
+		// Add a key listener to respond to escape and enter. When these
+		// are hit, submit the updated text for saving
 		$('.todo-input').keydown(function (e) {
 			if (e.which === 13 || e.which === 27) {
 				e.preventDefault();
@@ -27,17 +28,31 @@
 					label.text(input.val());
 					updateTodo(id);
 				}
-
 			}
 		});
 
-		var CSRF_TOKEN = $("[name='csrfmiddlewaretoken']").val();
+		// Add an onclick listener for completing elements, when clicked
+		// the todo will toggle between status states
+		$('.toggle-todo').click(function (e) {
+			e.preventDefault();
+			completeTodo(getId($(e.currentTarget)));
+		});
 
+		// Add an onclick listener for deleting elements, when clicked
+		// the todo will be submitted for deletion by the server
+		$('.delete-todo').click(function (e) {
+			e.preventDefault();
+			deleteTodo(getId($(e.currentTarget)));
+		});
+
+
+		// Adds a listener to the submit form to create a todo
 		$('#add-todo').on('submit', function (e) {
 			e.preventDefault();
 			addTodo();
 			return false;
 		});
+
 
 		function deleteTodo(id) {
 			$.post('delete/' + id + '/', getPostData(id)).done(function () {
@@ -66,6 +81,7 @@
 			});
 		}
 
+		/* Utility Functions */
 		function getPostData(id) {
 			return 'csrfmiddlewaretoken=' + CSRF_TOKEN + '&title=' + $('#' + createId(id, '-label')).text().replace(/ /g, '+');
 		}

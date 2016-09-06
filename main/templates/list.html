@@ -29,25 +29,16 @@
 		<section class="todo-list-section">
 			{% for todo in todos %}
 				<div id="__{{todo.pk}}-row" class="todo row">
-				{% if todo.status %}
 					<div class="col-md-1">
-						<a href onclick="djangoTodoApp.completeTodo({{todo.pk}}); return false;"><i id="__{{todo.pk}}" class="fa fa-check-square-o" aria-hidden="true"></i></a>
+						<a href class="toggle-todo" id="__{{todo.pk}}-toggle"><i id="__{{todo.pk}}" class="fa {% if todo.status %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i></a>
 					</div>
 					<div class="col-md-10">
-						<div id="__{{todo.pk}}-label" class="todo-label completed">{{ todo.title }}</div>
+						<div id="__{{todo.pk}}-label" class="todo-label {% if todo.status %} completed {% endif %}">{{ todo.title }}</div>
+						<input id="__{{todo.pk}}-input" class="form-control input-lg hidden todo-input" value="{{ todo.title }}">
 					</div>
-				{% else %}
 					<div class="col-md-1">
-						<a href onclick="djangoTodoApp.completeTodo({{todo.pk}}); return false;"><i id="__{{todo.pk}}" class="fa fa-square-o" aria-hidden="true"></i></a>
+						<a href class="delete-todo" id="__{{todo.pk}}-delete"><i id="__{{todo.pk}}-delete" class="fa fa-trash-o" aria-hidden="true"></i></a>
 					</div>
-					<div class="col-md-10">
-						<div id="__{{todo.pk}}-label" class="todo-label">{{ todo.title }}</div>
-					</div>
-				{% endif%}
-					<div class="col-md-1">
-						<a href onclick="djangoTodoApp.deleteTodo({{todo.pk}}); return false;"><i id="__{{todo.pk}}-delete" class="fa fa-trash-o" aria-hidden="true"></i></a>
-					</div>
-					<input id="__{{todo.pk}}-input" class="form-control input-lg todo-input hidden" value="{{ todo.title }}">
 				</div>
 			{% endfor %}
 		</section>

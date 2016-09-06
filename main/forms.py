@@ -2,6 +2,7 @@ from django import forms
 from .models import Todo
 
 class TodoForm(forms.ModelForm):
+	""" Creates a model form for the Todo model """
 	def __init__(self, *args, **kwargs):
 		super(TodoForm, self).__init__(*args, **kwargs)
 
